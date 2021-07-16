@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+# Diz qual o tipo de configuração está sendo configurada no arquivo .yaml
+kind: Deployment
+metadata:
+  # Nome do deployment que irá aparecer dentro do kubernetes
+  name: mysql-deployment
+spec:
+# definição das replicas (replica set)
+  replicas: 1
+  selector:
+    matchLabels:
+    # Nome que se deseja definir e que será utilizado para se relacionar com outros arquivos de configurações do kubernetes
+      app: mysql-deployment
+  template:
+    metadata:
+      labels:
+      # Nome que será dado ao template
+        app: mysql-deployment
+    spec:
+      containers:
+      # nome que será definido para a imagem
+      - name: mysql-image
+        image: mysql:5.6
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: wordpress2020
