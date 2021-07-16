@@ -25,4 +25,20 @@ spec:
           # Host do banco de dados dentro do kubernetes
             value: mysql-deployment
           - name: WORDPRESS_DB_PASSWORD
-            value: wordpress2020
+            valueFrom:
+              secretKeyRef:
+              # Nome da secret
+                name: mysql-secret
+                # Nome da key dentro da secret
+                key: password
+        volumeMounts:
+        # Nome do volume a ser criado
+          - name: wordpress-volume
+          # path que será gravado as informações de disco
+            mountPath: /var/www/html
+      volumes:
+      # Deve ser o mesmo nome de "volumeMounts"
+        - name: wordpress-volume
+          persistentVolumeClaim:
+          # Nome do volume criado em PersistentVolumeClaim
+            claimName: wordpress-pvc

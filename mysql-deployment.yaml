@@ -29,4 +29,18 @@ spec:
         - containerPort: 3306
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: wordpress2020
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: password
+        volumeMounts:
+        # Nome do volume a ser criado
+          - name: mysql-volume
+          # path que será gravado as informações de disco
+            mountPath: /var/lib/mysql
+      volumes:
+      # Deve ser o mesmo nome de "volumeMounts"
+        - name: mysql-volume
+          persistentVolumeClaim:
+          # Nome do volume criado em PersistentVolumeClaim
+            claimName: wordpress-pvc

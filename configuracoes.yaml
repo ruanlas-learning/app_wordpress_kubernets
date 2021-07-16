@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Secret
+metadata:
+# Nome da secret
+  name: mysql-secret
+type: Opaque
+stringData:
+# key definida na secret
+  password: wordpress-2020
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+# Nome do volume
+  name: mysql-pvc
+spec:
+  resources:
+    requests:
+    # Tamanho de espaço do volume
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  # Tipo de acesso
+    - ReadWriteMany
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+# Nome do volume
+  name: wordpress-pvc
+spec:
+  resources:
+    requests:
+    # Tamanho de espaço do volume
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  # Tipo de acesso
+    - ReadWriteMany
