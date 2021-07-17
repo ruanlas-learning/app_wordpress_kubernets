@@ -5,7 +5,7 @@ metadata:
   name: mysql-service
 spec:
 # Tipo de configuração da service
-  type: ClusterIP
+  type: ClusterIP # Só se comunica dentro do kubernetes
   selector:
   # Especifica o deployment que está sendo referenciado. Deve ser o mesmo valor contido em "spec.selector.matchLabels.app" do deployment
     app: mysql-deployment
@@ -21,7 +21,7 @@ metadata:
   name: wordpress-service
 spec:
 # O type LoadBalancer é responsável pela comunicação com o mundo externo
-  type: LoadBalancer
+  type: LoadBalancer # É exposta para fora do kubernetes
   selector:
     app: wordpress-deployment
   ports:

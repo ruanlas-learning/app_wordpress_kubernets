@@ -22,8 +22,8 @@ spec:
         - containerPort: 80
         env:
           - name: WORDPRESS_DB_HOST
-          # Host do banco de dados dentro do kubernetes
-            value: mysql-deployment
+          # Host do banco de dados dentro do kubernetes (nome da service do banco de dados especificado nas configurações de service)
+            value: mysql-service
           - name: WORDPRESS_DB_PASSWORD
             valueFrom:
               secretKeyRef:
